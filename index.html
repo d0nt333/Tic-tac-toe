@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl=PL">
+    <head>
+        <title>Kółko i Krzyżyk</title>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="Tic, Tac, Toe, Kółko, Krzyżyk, JavaScript">
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            span{
+                width: 50px;
+                height: 50px;
+                background-color: grey;
+                display: inline-block;
+                margin: 5px;
+                position: relative;
+            }
+            .circle{
+                position: absolute;
+                left: 8px;
+                top: 8px;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                border: 5px black solid;
+            }
+            .cross{
+                position: absolute;
+                left: 10px;
+                top: 20px;
+            }
+            .cross:before, .cross:after{
+                position: absolute;
+                content: "";
+                width: 30px;
+                height: 5px;
+                background-color: black;
+            }
+            .cross:before{
+                transform: rotate(45deg);
+            }
+            .cross:after{
+                transform: rotate(-45deg);
+            }
+            p{
+                font-family: Jazz LET, fantasy;
+                font-size: 50px;
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Obecnie tura: <div class="circle" style="position: absolute; left: 200px;" id="tura"></div></h1>
+        <span id="pierwszy" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="drugi" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="trzeci" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <br>
+        <span id="czwarty" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="piaty" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="szosty" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <br>
+        <span id="siodmy" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="osmy" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <span id="dziewiaty" onclick="sprawdzajFunkcja(id)">
+        </span>
+        <p id="koniec"></p>
+        <script>
+            let znak="kolko";
+            function sprawdzajFunkcja(clicked_id){
+                let span=document.getElementById(clicked_id)
+                if(!span.children.length>0){
+                    let div=document.createElement("div")
+                    let tura=document.getElementById("tura")
+                    if(znak==="kolko"){
+                        div.setAttribute("class", "circle")
+                        tura.setAttribute("class", "cross")
+                        znak="krzyzyk"
+                    }
+                    else{
+                        div.setAttribute("class", "cross")
+                        tura.setAttribute("class", "circle")
+                        znak="kolko"
+                    }
+                    span.appendChild(div)
+                    
+                    let pierwszy=document.getElementById("pierwszy")
+                    let drugi=document.getElementById("drugi")
+                    let trzeci=document.getElementById("trzeci")
+                    let czwarty=document.getElementById("czwarty")
+                    let piaty=document.getElementById("piaty")
+                    let szosty=document.getElementById("szosty")
+                    let siodmy=document.getElementById("siodmy")
+                    let osmy=document.getElementById("osmy")
+                    let dziewiaty=document.getElementById("dziewiaty")
+                    let zmienna
+                    if(znak==="krzyzyk"){
+                        zmienna="circle"
+                    }
+                    else{
+                        zmienna="cross"
+                    }
+                    if(document.querySelectorAll("."+zmienna).length>=3){
+                        if((document.querySelector("#pierwszy>"+"."+zmienna)
+                            &&document.querySelector("#drugi>"+"."+zmienna)
+                            &&document.querySelector("#trzeci>"+"."+zmienna))
+                        ||(document.querySelector("#pierwszy>"+"."+zmienna)
+                            &&document.querySelector("#czwarty>"+"."+zmienna)
+                            &&document.querySelector("#siodmy>"+"."+zmienna))
+                        ||(document.querySelector("#pierwszy>"+"."+zmienna)
+                            &&document.querySelector("#piaty>"+"."+zmienna)
+                            &&document.querySelector("#dziewiaty>"+"."+zmienna))
+                        ||(document.querySelector("#siodmy>"+"."+zmienna)
+                            &&document.querySelector("#osmy>"+"."+zmienna)
+                            &&document.querySelector("#dziewiaty>"+"."+zmienna))
+                        ||(document.querySelector("#siodmy>"+"."+zmienna)
+                            &&document.querySelector("#piaty>"+"."+zmienna)
+                            &&document.querySelector("#trzeci>"+"."+zmienna))
+                        ||(document.querySelector("#dziewiaty>"+"."+zmienna)
+                            &&document.querySelector("#szosty>"+"."+zmienna)
+                            &&document.querySelector("#trzeci>"+"."+zmienna))
+                        ||(document.querySelector("#piaty>"+"."+zmienna)
+                            &&document.querySelector("#czwarty>"+"."+zmienna)
+                            &&document.querySelector("#szosty>"+"."+zmienna))
+                        ||(document.querySelector("#piaty>"+"."+zmienna)
+                            &&document.querySelector("#drugi>"+"."+zmienna)
+                            &&document.querySelector("#osmy>"+"."+zmienna))){
+                                    document.getElementById("koniec").innerHTML=("Wygrywa "+(zmienna==="circle"?"kółko":"krzyżyk")+"!")
+                                    pierwszy.innerHTML=""
+                                    drugi.innerHTML=""
+                                    trzeci.innerHTML=""
+                                    czwarty.innerHTML=""
+                                    piaty.innerHTML=""
+                                    szosty.innerHTML=""
+                                    siodmy.innerHTML=""
+                                    osmy.innerHTML=""
+                                    dziewiaty.innerHTML=""
+                                    znak="kolko"
+                                    tura.setAttribute("class", "circle")
+                            }
+                            else if((document.querySelectorAll(".circle").length===5)||(document.querySelectorAll(".cross").length===5)){
+                                document.getElementById("koniec").innerHTML=("Koniec gry oznacza REMIS!")
+                                pierwszy.innerHTML=""
+                                drugi.innerHTML=""
+                                trzeci.innerHTML=""
+                                czwarty.innerHTML=""
+                                piaty.innerHTML=""
+                                szosty.innerHTML=""
+                                siodmy.innerHTML=""
+                                osmy.innerHTML=""
+                                dziewiaty.innerHTML=""
+                                znak="kolko"
+                                tura.setAttribute("class", "circle")
+                            }
+                        
+                    }
+                } 
+            }               
+        </script>
+    </body>
+</html>
